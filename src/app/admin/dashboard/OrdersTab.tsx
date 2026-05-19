@@ -1,13 +1,39 @@
 "use client";
 
+import Image from "next/image";
 import styles from "./OrdersTab.module.scss";
 
-// هنفترض إن الـ Order بيجيلنا فيه تفاصيل الـ items كـ JSON
-export function OrdersTab({ orders }: { orders: any[] }) {
+// 1. تعريف الهياكل لإنهاء مشاكل الـ any
+interface Product {
+  name: string;
+  img: string;
+}
+
+interface CartItem {
+  products: Product;
+  quantity: number;
+}
+
+interface Order {
+  id: number;
+  customer_name: string;
+  total_price: number;
+  status: "pending" | "approved" | "rejected";
+  items: string | CartItem[];
+  address: string;
+  phone: string;
+}
+
+interface Props {
+  orders: Order[];
+  refresh: () => void;
+}
+
+export function OrdersTab({ orders, refresh }: Props) {
   
-  // دالة لفتح واتساب
   const openWhatsApp = (phone: string) => {
-    // التأكد إن الرقم بيبدأ بـ 20
+    // تشغيل الـ refresh عند الضغط (اختياري حسب رغبتك)
+    refresh(); 
     const formattedPhone = phone.startsWith("0") ? "2" + phone : phone;
     window.open(`https://wa.me/${formattedPhone}`, "_blank");
   };
@@ -20,24 +46,31 @@ export function OrdersTab({ orders }: { orders: any[] }) {
           <thead>
             <tr>
               <th>العميل</th>
-              <th>التفاصيل (المنتجات)</th>
+              <th>التفاصيل</th>
               <th>العنوان/الموبايل</th>
               <th>إجراء</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((o) => {
-              // بنحول الـ items من String لـ Array
-              const items = typeof o.items === "string" ? JSON.parse(o.items) : o.items;
+              const items: CartItem[] = typeof o.items === "string" ? JSON.parse(o.items) : o.items;
 
               return (
                 <tr key={o.id}>
                   <td>{o.customer_name}</td>
                   <td>
                     <div className={styles.itemsList}>
-                      {items?.map((item: any, i: number) => (
+                      {items?.map((item, i) => (
                         <div key={i} className={styles.itemRow}>
-                          <img src={item.products?.img} alt="product" className={styles.miniImg} />
+                          {item.products?.img && (
+                            <Image 
+                              src={item.products.img} 
+                              alt={item.products.name} 
+                              width={40} 
+                              height={40} 
+                              className={styles.miniImg} 
+                            />
+                          )}
                           <span>{item.products?.name} (x{item.quantity})</span>
                         </div>
                       ))}
