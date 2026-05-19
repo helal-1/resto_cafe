@@ -1,0 +1,181 @@
+@import '../../styles/variables';
+
+.menuPageWrapper {
+  background-color: $bg-dark; min-height: 100vh; padding-top: 100px; color: $accent-cream; font-family: $font-sans; direction: rtl;
+}
+
+.menuHero {
+  text-align: center; padding: 4rem 1rem 2rem;
+  h1 { font-family: $font-serif; font-size: 2.8rem; color: #fff; margin-bottom: 0.8rem; span { color: $accent-gold; } }
+  p { color: $text-muted; font-size: 1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+}
+
+.mainLayout { display: flex; padding: 2rem 8%; gap: 3rem; @media (max-width: 992px) { flex-direction: column; padding: 2rem 5%; } }
+
+.sidebar {
+  width: 240px; flex-shrink: 0;
+  h3 { font-family: $font-serif; font-size: 1.3rem; color: #fff; margin-bottom: 1.5rem; border-bottom: 1px solid rgba($accent-gold, 0.1); padding-bottom: 0.5rem; }
+  @media (max-width: 992px) { width: 100%; }
+}
+
+.catList {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  @media (max-width: 992px) { flex-direction: row; overflow-x: auto; padding-bottom: 1rem; gap: 1rem; }
+  
+  button {
+    background: transparent; border: none; color: $text-muted; padding: 0.9rem 1.2rem; text-align: right;
+    font-size: 1rem; font-weight: 500; cursor: pointer; border-radius: 10px; position: relative; transition: $smooth;
+    @media (max-width: 992px) { text-align: center; white-space: nowrap; padding: 0.6rem 1.2rem; background-color: $bg-card; border: 1px solid rgba(255,255,255,0.02); }
+    &:hover, &.active { color: $accent-gold; }
+    &.active { font-weight: 600; @media (max-width: 992px) { background-color: rgba($accent-gold, 0.08); border-color: rgba($accent-gold, 0.2); } }
+  }
+}
+.activeIndicator { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: $accent-gold; border-radius: 4px; @media (max-width: 992px) { display: none; } }
+
+.contentArea { flex-grow: 1; }
+.topControlBar {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; gap: 1.5rem;
+  @media (max-width: 576px) { flex-direction: column; align-items: stretch; }
+}
+
+.searchBox {
+  position: relative; flex-grow: 1; max-width: 450px; display: flex; align-items: center;
+  svg { position: absolute; right: 1.2rem; color: $text-muted; }
+  input {
+    width: 100%; height: 48px; background-color: $bg-card; border: 1px solid rgba($accent-gold, 0.12);
+    border-radius: 12px; padding: 0 3.2rem 0 1.5rem; color: #fff; font-size: 0.95rem; outline: none; transition: $smooth;
+    &:focus { border-color: $accent-gold; box-shadow: 0 0 15px rgba($accent-gold, 0.05); }
+  }
+}
+
+.rightControls { display: flex; align-items: center; gap: 1.2rem; @media (max-width: 576px) { justify-content: space-between; } }
+
+.gridLayoutSwitcher {
+  display: flex; background: $bg-card; padding: 4px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.02);
+  @media (max-width: 768px) { display: none; }
+  button {
+    background: transparent; border: none; color: $text-muted; width: 36px; height: 36px;
+    border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: $smooth;
+    &:hover { color: #fff; }
+    &.activeGridBtn { background-color: rgba($accent-gold, 0.1); color: $accent-gold; }
+  }
+}
+
+.filterContainer { position: relative; }
+.filterBtn {
+  background-color: $bg-card; border: 1px solid rgba($accent-gold, 0.12); color: $accent-cream;
+  height: 48px; padding: 0 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 0.8rem; cursor: pointer; transition: $smooth;
+  &:hover, &.btnActive { border-color: $accent-gold; color: $accent-gold; }
+}
+.filterDropdown {
+  position: absolute; left: 0; top: 120%; background-color: $bg-card; border: 1px solid rgba($accent-gold, 0.15);
+  border-radius: 12px; width: 240px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 50; padding: 0.5rem;
+}
+.dropdownItem {
+  display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem;
+  border-radius: 8px; cursor: pointer; font-size: 0.9rem; color: rgba($accent-cream, 0.8); transition: $smooth;
+  &:hover { background-color: rgba(255,255,255,0.02); color: #fff; }
+  &.selectedOpt { color: $accent-gold; font-weight: 600; }
+  .checkIcon { color: $accent-gold; }
+}
+
+.menuGrid {
+  display: grid; gap: 2rem; transition: $smooth;
+  &.cols3 { grid-template-columns: repeat(3, 1fr); @media (max-width: 1200px) { grid-template-columns: repeat(2, 1fr); } @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); gap: 1rem; } @media (max-width: 480px) { grid-template-columns: 1fr; } }
+  &.cols2 { grid-template-columns: repeat(2, 1fr); @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); gap: 1rem; } @media (max-width: 480px) { grid-template-columns: 1fr; } }
+}
+
+.menuCard {
+  background-color: $bg-card; border-radius: 20px; overflow: hidden; border: 1px solid rgba($accent-gold, 0.04);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2); display: flex; flex-direction: column; transition: $smooth;
+  &:hover { transform: translateY(-6px); border-color: rgba($accent-gold, 0.15); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+}
+
+.imageWrapper { position: relative; width: 100%; height: 230px; background-color: lighten($bg-dark, 2%); overflow: hidden; }
+.sliderContainer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.sliderImageWrapper { position: relative; width: 100%; height: 100%; }
+.productImg { object-fit: cover; transition: transform 0.5s $smooth; }
+
+.sliderDots {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10;
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: $smooth; }
+  .activeDot { background: $accent-gold; width: 14px; border-radius: 10px; }
+}
+
+.discountBadge {
+  position: absolute; top: 12px; right: 12px; background: #e74c3c; color: #fff;
+  font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 8px;
+  display: flex; align-items: center; gap: 3px; z-index: 12; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.categoryBadge {
+  position: absolute; top: 12px; left: 12px; background: rgba($bg-dark, 0.8); color: $accent-gold;
+  border: 1px solid rgba($accent-gold, 0.2); font-size: 0.75rem; font-weight: 600; padding: 4px 10px;
+  border-radius: 8px; display: flex; align-items: center; gap: 4px; z-index: 12; backdrop-filter: blur(4px);
+}
+
+.rateBadge {
+  position: absolute; bottom: 12px; right: 12px; background: rgba($bg-card, 0.9);
+  padding: 4px 10px; border-radius: 8px; display: flex; align-items: center; gap: 4px;
+  font-size: 0.75rem; font-weight: 600; color: #fff; z-index: 12; backdrop-filter: blur(4px);
+}
+
+.cardInfo {
+  padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; gap: 0.8rem;
+  h4 { font-size: 1.15rem; color: #fff; font-weight: 600; text-align: right; }
+}
+
+.description {
+  font-size: 0.85rem; color: $text-muted; line-height: 1.6; text-align: right;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 4.8em;
+}
+
+.cardBottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 0.5rem; }
+.priceZone { display: flex; flex-direction: column; gap: 2px; text-align: right; }
+.price { font-size: 1.2rem; color: $accent-gold; font-weight: 700; font-family: $font-serif; }
+.oldPrice { font-size: 0.85rem; color: rgba($text-muted, 0.6); text-decoration: line-through; font-family: $font-serif; }
+
+.addBtn {
+  background-color: rgba($accent-gold, 0.08); border: 1px solid rgba($accent-gold, 0.2); color: $accent-gold;
+  width: 42px; height: 42px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: $smooth;
+  &:hover { background-color: $accent-gold; color: #fff; box-shadow: 0 5px 15px rgba($accent-gold, 0.2); }
+}
+
+// 🛠️ تم حقن الكلاس المفقود هنا ليعطي أيقونة المجموعات المظهر والوزن المتناسق
+.archiveBtn {
+  background-color: rgba(255, 255, 255, 0.03); 
+  border: 1px solid rgba(255, 255, 255, 0.05); 
+  color: $text-muted;
+  width: 42px; 
+  height: 42px; 
+  border-radius: 10px; 
+  cursor: pointer; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  transition: $smooth;
+
+  &:hover { 
+    background-color: rgba($accent-gold, 0.1); 
+    color: $accent-gold; 
+    border-color: rgba($accent-gold, 0.2); 
+  }
+}
+
+.pagination {
+  display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 4rem; direction: ltr;
+  button {
+    background-color: $bg-card; border: 1px solid rgba(255,255,255,0.03); color: $accent-cream;
+    width: 44px; height: 44px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: $smooth;
+    &:hover:not(:disabled), &.activePage { background-color: $accent-gold; color: #fff; border-color: $accent-gold; box-shadow: 0 5px 15px rgba($accent-gold, 0.15); }
+    &:disabled, &.disabledBtn { opacity: 0.3; cursor: not-allowed; }
+  }
+}
+
+.loadingState {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8rem 0; gap: 1.5rem; color: $text-muted;
+  .spinner { color: $accent-gold; animation: spin 1s linear infinite; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

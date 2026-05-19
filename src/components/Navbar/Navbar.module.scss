@@ -1,0 +1,148 @@
+@import '../../styles/variables';
+
+// === النبار العلوي الأساسي ===
+.navbar {
+  position: fixed;
+  top: 0; right: 0; left: 0;
+  z-index: 9999;
+  padding: 1.8rem 8%;
+  background: linear-gradient(to bottom, rgba($bg-dark, 0.95) 0%, rgba($bg-dark, 0) 100%);
+  font-family: $font-sans;
+  transition: $smooth;
+
+  @media (max-width: 768px) {
+    padding: 1.2rem 5%;
+    background: rgba($bg-dark, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba($accent-gold, 0.05);
+  }
+
+  &.scrolled {
+    background: rgba($bg-dark, 0.95);
+    backdrop-filter: blur(12px);
+    padding: 1.2rem 8%;
+    border-bottom: 1px solid rgba($accent-gold, 0.1);
+
+    @media (max-width: 768px) { padding: 0.9rem 5%; }
+  }
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  font-family: $font-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: $accent-cream;
+  text-decoration: none;
+  span { color: $accent-gold; }
+  @media (max-width: 480px) { font-size: 1.4rem; }
+}
+
+// === لينكات الديسك توب (تختفي أوتوماتيك في الموبايل عشان تمنع الزحمة الكان طالعة فوق) ===
+.desktopNavLinks {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+
+  @media (max-width: 768px) {
+    display: none !important; // الاختفاء التام لمنع التداخل والكركبة
+  }
+
+  a {
+    color: $accent-cream;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: $smooth;
+    position: relative;
+
+    &::after {
+      content: ''; position: absolute; bottom: -6px; right: 0;
+      width: 0; height: 2px; background: $accent-gold; transition: $smooth;
+    }
+    &:hover, &.active {
+      color: $accent-gold;
+      &::after { width: 100%; }
+    }
+  }
+}
+
+// === كروت الأكشنز العلوية الثابتة ===
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  @media (max-width: 768px) { gap: 1.2rem; }
+}
+
+.iconBtn {
+  background: transparent; border: none; color: $accent-cream;
+  cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; transition: $smooth;
+  &:hover { color: $accent-gold; }
+
+  .badge {
+    position: absolute; top: -5px; left: -7px; background: $accent-gold; color: #fff;
+    font-size: 0.65rem; font-weight: bold; min-width: 15px; height: 15px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// === 📱 شريط الأيقونات السفلي الحقيقي والمثبت للموبايل ===
+.bottomNav {
+  display: none; // مخفي تماماً في شاشات الكمبيوتر
+
+  @media (max-width: 768px) {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    width: 100%;
+    height: 65px;
+    background: rgba($bg-card, 0.96);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6);
+    border-top: 1px solid rgba($accent-gold, 0.15);
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 99999; // يطفو فوق كل عناصر الهيرو والسكاشن
+  }
+}
+
+.bottomNavItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  text-decoration: none;
+  color: rgba($accent-cream, 0.5);
+  transition: $smooth;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+
+  .bottomIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: $smooth;
+  }
+
+  .bottomText {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  // تأثير الإضاءة الفخم للأيقونة النشطة الحالية للزبون باللون الذهبي
+  &:hover, &.activeBottom {
+    color: $accent-gold;
+    .bottomIcon {
+      transform: translateY(-2px);
+    }
+  }
+}

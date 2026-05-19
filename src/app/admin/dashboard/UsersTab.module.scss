@@ -1,0 +1,11 @@
+@import '../../../styles/variables';
+.zone { width: 100%; }
+.title { font-family: $font-serif; font-size: 2rem; color: #fff; margin-bottom: 2.5rem; span { color: $accent-gold; } }
+.wrapper { background-color: $bg-card; border-radius: 18px; padding: 1rem; overflow-x: auto; }
+.table {
+  width: 100%; border-collapse: collapse; text-align: right;
+  th { padding: 1.2rem; color: rgba($accent-cream, 0.4); border-bottom: 1px solid rgba($accent-gold, 0.08); }
+  td { padding: 1.2rem; border-bottom: 1px solid rgba($accent-cream, 0.02); }
+}
+.admin { background: rgba($accent-gold, 0.1); color: $accent-gold; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; }
+.user { background: rgba($accent-cream, 0.05); color: $text-muted; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; }

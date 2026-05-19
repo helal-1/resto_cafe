@@ -1,0 +1,38 @@
+@import '../../../styles/variables';
+
+.zone { background: transparent; padding: 1rem 0; direction: rtl; }
+.title { font-family: $font-serif; font-size: 1.8rem; color: #fff; margin-bottom: 2rem; text-align: right; span { color: $accent-gold; } }
+
+// شبكة الكروت الأربعة
+.grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;
+}
+.card {
+  background: $bg-card; border: 1px solid rgba($accent-gold, 0.04); border-radius: 16px; padding: 1.5rem;
+  display: flex; align-items: center; gap: 1.2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: $smooth;
+  &:hover { transform: translateY(-4px); border-color: rgba($accent-gold, 0.12); }
+  
+  .icon {
+    width: 48px; height: 48px; background: rgba($accent-gold, 0.08); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; color: $accent-gold; flex-shrink: 0;
+  }
+  h3 { color: #fff; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.2rem; font-family: $font-serif; }
+  p { color: $text-muted; font-size: 0.85rem; font-weight: 500; }
+}
+
+// 🛠️ شبكة الرسوم البيانية المتطورة
+.chartsGrid {
+  display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem;
+  @media (max-width: 992px) { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+.chartBlock {
+  background: $bg-card; border: 1px solid rgba(255,255,255,0.02); border-radius: 20px; padding: 1.5rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 1.5rem;
+}
+.chartHeader {
+  display: flex; align-items: center; gap: 0.6rem; color: $accent-gold; border-bottom: 1px solid rgba(255,255,255,0.03);
+  padding-bottom: 0.8rem; h4 { color: #fff; font-size: 1rem; font-weight: 600; }
+}
+.chartContainer {
+  width: 100%; height: 260px; direction: ltr; // التوجيه لليسار ضروري عشان أرقام ومحاور الرسم البياني تطلع منسقة صح
+}

@@ -1,0 +1,217 @@
+@import '../../../styles/variables';
+
+.dashboardLayout {
+  background-color: $bg-dark;
+  min-height: 100vh;
+  padding-top: 85px;
+  display: flex;
+  direction: rtl;
+  color: $accent-cream;
+  font-family: $font-sans;
+
+  // قلب اتجاه الحاوية في الموبايل ليكون عمودي بدلاً من أفقي
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding-bottom: 90px; // مساحة أمان سفلية عشان المحتوى ميتغطاش بالشريط السفلي
+  }
+}
+
+// === السايد بار الأيمن وتحويله لشريط سفلي في الموبايل ===
+.sidebar {
+  width: 280px;
+  background-color: $bg-card;
+  border-left: 1px solid rgba($accent-gold, 0.1);
+  min-height: calc(100vh - 85px);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  flex-shrink: 0;
+  transition: $smooth;
+
+  // 📱 السحر كله هنا: تحويل السايد بار بالكامل لشريط أيقونات سفلي مثبت
+  @media (max-width: 768px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    min-height: auto !important;
+    height: 70px;
+    padding: 0 1rem !important;
+    flex-direction: row !important;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 9999;
+    border-left: none;
+    border-top: 1px solid rgba($accent-gold, 0.15);
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    background-color: rgba($bg-card, 0.95);
+  }
+}
+
+// إخفاء بروفايل الإدارة في الموبايل لتوفير مساحة للأزرار
+.adminProfile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba($accent-cream, 0.05);
+
+  @media (max-width: 768px) {
+    display: none !important; // يختفي تماماً في الموبايل
+  }
+
+  .avatar {
+    width: 45px; height: 45px; background: $accent-gold; color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;
+  }
+  h4 { color: #fff; font-size: 1rem; margin-bottom: 0.2rem; }
+  p { color: $text-muted; font-size: 0.8rem; }
+}
+
+// قائمة التنقل التفاعلية
+.sideNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  // قلب التوزيعة ليكونوا بجانب بعض أفقياً في الموبايل
+  @media (max-width: 768px) {
+    flex-direction: row !important;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    color: $text-muted;
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: $smooth;
+    text-align: right;
+    width: 100%;
+
+    // تحويل البوتون ليكون مجرد أيقونة مريحة متمحورة في الشريط السفلي
+    @media (max-width: 768px) {
+      flex-direction: column;
+      justify-content: center;
+      padding: 0.5rem !important;
+      gap: 4px;
+      border-radius: 8px;
+
+      // إخفاء التكست المكتوب والإبقاء على الأيقونة فقط عشان الشريط ميزحمش
+      span {
+        display: none !important;
+      }
+      
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    &:hover { color: #fff; background-color: rgba($accent-cream, 0.02); }
+    &.active { 
+      background-color: rgba($accent-gold, 0.08); 
+      color: $accent-gold; 
+      font-weight: 600; 
+
+      @media (max-width: 768px) {
+        background-color: transparent; // إزالة الخلفية في الموبايل للاكتفاء بلون الأيقونة المضيء
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// === منطقة محتوى الأقسام (تتمدد لتأخذ الشاشة بالكامل في الموبايل) ===
+.contentArea {
+  flex-grow: 1;
+  padding: 3rem;
+  background-color: darken($bg-dark, 2%);
+  overflow-y: auto;
+  transition: $smooth;
+
+  // إزالة البادينج الضخم في الموبايل لتوفير كل بكسل لجداول الداتا
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem !important;
+    width: 100%;
+  }
+}
+
+.tabContent {
+  width: 100%;
+}
+
+.loadingBox {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10rem 0; gap: 1.5rem; color: $text-muted;
+  .spinner { color: $accent-gold; animation: spin 1s linear infinite; }
+}
+
+.luxuryToast {
+  position: fixed; top: 30px; left: 50%; transform: translateX(-50%); z-index: 999999;
+  display: flex; align-items: center; gap: 1rem; padding: 1rem 2rem; border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); font-size: 0.95rem;
+  font-weight: 500; min-width: 320px; justify-content: space-between; border: 1px solid rgba(255, 255, 255, 0.05);
+
+  @media (max-width: 480px) {
+    width: 90%; font-size: 0.85rem; padding: 0.8rem 1.2rem; top: 20px;
+  }
+
+  &.success { background-color: rgba($bg-card, 0.9); border-color: rgba($accent-gold, 0.3); color: $accent-gold; }
+  &.error { background-color: rgba(#c0392b, 0.95); color: #fff; }
+  &.warn { background-color: rgba(#d35400, 0.95); color: #fff; }
+  .toastMsg { flex-grow: 1; text-align: right; }
+  .toastClose { background: transparent; border: none; color: inherit; opacity: 0.6; cursor: pointer; &:hover { opacity: 1; } }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.homeBtnWrapper {
+  margin-bottom: 1.5rem;
+  text-align: right; // محاذاة لليمين متناسقة مع اتجاه لوحة الأدمن
+ width: 100%;
+ position: absolute;
+ top: 15px; right: 20px; z-index: 10000;
+
+}
+
+.backHomeBtn {
+  display: inline-flex;
+  align-items: center;
+  font-family: $font-serif; // سحب فونت السيريف الجميل المخصص للبراند
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba($accent-gold, 0.2);
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  transition: $smooth;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  span {
+    color: $accent-gold;
+    margin-right: 0.35rem; // مسافة خفيفة بين الكلمتين
+    text-shadow: 0 0 10px rgba($accent-gold, 0.3); // توهج ناعم للكلمة الذهبية
+  }
+
+  &:hover {
+    background: rgba($accent-gold, 0.08);
+    border-color: $accent-gold;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($accent-gold, 0.15);
+  }
+}

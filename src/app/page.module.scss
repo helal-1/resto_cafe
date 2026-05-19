@@ -1,0 +1,1119 @@
+@import '../styles/variables';
+
+.container {
+  background-color: $bg-dark;
+  color: $accent-cream;
+  font-family: $font-sans;
+  min-height: 100vh;
+}
+
+// --- 1. HERO SECTION ---
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 6rem 0;
+}
+
+.heroBgContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.heroBgImageWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  
+  .bgImage {
+    object-fit: cover; 
+    object-position: center;
+  }
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to left, 
+    rgba($bg-dark, 0.96) 0%, 
+    rgba($bg-dark, 0.8) 50%, 
+    rgba($bg-dark, 0.95) 100%
+  ),
+  linear-gradient(
+    to bottom,
+    rgba($bg-dark, 0.4) 0%,
+    rgba($bg-dark, 0.2) 70%,
+    $bg-dark 100%
+  );
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    background: rgba($bg-dark, 0.85); 
+  }
+}
+
+.heroGlow {
+  position: absolute;
+  right: 5%;
+  top: 25%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba($accent-gold, 0.2) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(50px);
+  z-index: 2;
+  pointer-events: none;
+  
+  @media (max-width: 768px) {
+    right: 50%;
+    transform: translateX(50%);
+    width: 280px;
+    height: 280px;
+  }
+}
+
+.heroContentContainer {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  padding: 0 8%;
+  margin-top: 5rem; 
+
+  @media (max-width: 768px) {
+    padding: 0 6%;
+    margin-top: 4rem;
+  }
+}
+
+.sliderContentWrapper {
+  width: 100%;
+  display: flex;
+}
+
+.heroContent {
+  max-width: 650px;
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .subtitle {
+    display: inline-block;
+    font-family: $font-serif;
+    font-style: italic;
+    color: $accent-gold;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.15rem;
+      margin-bottom: 0.8rem;
+    }
+  }
+  
+  .title {
+    font-family: $font-serif;
+    font-size: 4.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1.8rem;
+    letter-spacing: -1px;
+    
+    span { color: $accent-gold; }
+
+    @media (max-width: 1200px) { font-size: 3.8rem; }
+    @media (max-width: 968px) { font-size: 3.2rem; }
+    
+    @media (max-width: 768px) {
+      font-size: 2.5rem; 
+      line-height: 1.3;
+      margin-bottom: 1.2rem;
+    }
+    @media (max-width: 480px) {
+      font-size: 2.1rem;
+    }
+  }
+  
+  .desc {
+    color: rgba($accent-cream, 0.8);
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 3.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+
+    @media (max-width: 768px) {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    width: 100%;
+  }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+.sliderControls {
+  position: absolute;
+  left: 4%; 
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  z-index: 4;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    top: auto;
+    bottom: 8%; 
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 1.5rem;
+    margin: 0;
+  }
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: $font-serif;
+  gap: 0.1rem;
+
+  @media (max-width: 768px) { flex-direction: row; gap: 0.3rem; }
+
+  .currentNum { font-size: 1.8rem; color: $accent-gold; font-weight: 700; @media (max-width: 768px) { font-size: 1.4rem; } }
+  .separator { font-size: 0.9rem; color: rgba($text-muted, 0.4); }
+  .totalNum { font-size: 1.1rem; color: $text-muted; @media (max-width: 768px) { font-size: 0.95rem; } }
+}
+
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  @media (max-width: 768px) { flex-direction: row; gap: 0.8rem; }
+}
+
+.progressBarWrapper {
+  cursor: pointer;
+}
+
+.progressBarBg {
+  width: 3px;
+  height: 50px;
+  background-color: rgba($accent-cream, 0.15);
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+
+  @media (max-width: 768px) { width: 35px; height: 3px; } 
+}
+
+.activeWrapper .progressBarBg {
+  background-color: rgba($accent-cream, 0.3);
+  width: 4px;
+  @media (max-width: 768px) { width: 35px; height: 4px; }
+}
+
+.progressBarFill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  background-color: $accent-gold;
+  box-shadow: 0 0 10px rgba($accent-gold, 0.8);
+}
+
+.bottomFeaturesBar {
+  position: absolute;
+  bottom: 4%;
+  right: 8%;
+  z-index: 3;
+  width: auto;
+
+  @media (max-width: 968px) { right: 5%; }
+  @media (max-width: 768px) { display: none; } 
+}
+
+.features {
+  display: flex;
+  gap: 3rem;
+  color: rgba($accent-cream, 0.7);
+  font-size: 0.95rem;
+  
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    svg { color: $accent-gold; }
+  }
+}
+
+// 🆕 --- سكشن أصناف المشاريب الدائري (Infinite Auto-Scroll Track) ---
+.categoriesTrack {
+  background-color: lighten($bg-dark, 2%); // تباين خفيف جداً بين الـ Hero والـ About
+  padding: 3rem 0;
+  border-top: 1px solid rgba($accent-gold, 0.05);
+  border-bottom: 1px solid rgba($accent-gold, 0.05);
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  overflow: hidden;
+
+  .trackContainer {
+    width: 100%;
+    display: flex;
+  }
+
+  .trackMarquee {
+    display: flex;
+    width: max-content;
+    overflow: hidden;
+  }
+
+  // الميكانيكية السحرية للتمرير اللانهائي بسلاسة متناهية وبدون أي تقطيع
+  .trackGroup {
+    display: flex;
+    align-items: center;
+    gap: 4rem; // المسافة بين العناصر الدائرية
+    padding-right: 4rem; // لمنع الفراغات عند الـ Loop
+    animation: infiniteScroll 25s linear infinite; // أنيميشن CSS صافي خفيف وطاقة كاملة للأداء
+    
+    // عند تحويم الماوس يقف الشريط مؤقتاً لراحة المستخدم عند الضغط
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  .categoryItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: $smooth;
+
+    &:hover {
+      transform: translateY(-5px);
+      
+      .itemCircle {
+        border-color: $accent-gold;
+        box-shadow: 0 0 20px rgba($accent-gold, 0.3);
+        
+        .catImg {
+          transform: scale(1.1); // تأثير زوم خفيف للصورة عند الـ Hover
+        }
+      }
+
+      .catName {
+        color: $accent-gold;
+      }
+    }
+  }
+
+  .itemCircle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%; // دوائر كاملة
+    border: 2px solid rgba($accent-cream, 0.1);
+    overflow: hidden;
+    position: relative;
+    background-color: $bg-dark;
+    transition: $smooth;
+
+    @media (max-width: 768px) {
+      width: 85px;
+      height: 85px;
+    }
+
+    .catImg {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      transition: $smooth;
+    }
+  }
+
+  .catName {
+    font-family: $font-sans;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba($accent-cream, 0.8);
+    transition: $smooth;
+    white-space: nowrap; // منع الكلمة من النزول لسطر جديد
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// الـ Keyframes الخاصة بحركة الـ Scroll اللانهائي الفخمة للـ Marquee
+@keyframes infiniteScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%); // التحرك باتجاه اتجاه الـ RTL العربي بسلاسة مريحة
+  }
+}
+
+// الأزرار الاحترافية
+.btnPrimary {
+  background-color: $accent-gold;
+  color: #fff;
+  border: none;
+  padding: 0.95rem 2.4rem;
+  border-radius: 30px;
+  font-family: $font-sans;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: $smooth;
+  
+  &:hover {
+    background-color: lighten($accent-gold, 6%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba($accent-gold, 0.3);
+  }
+
+  @media (max-width: 480px) { width: 100%; padding: 0.85rem 2rem; }
+}
+
+.btnSecondary {
+  background: transparent;
+  color: $accent-cream;
+  border: 1px solid rgba($accent-cream, 0.3);
+  padding: 0.95rem 2.4rem;
+  border-radius: 30px;
+  font-family: $font-sans;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: $smooth;
+  
+  &:hover {
+    background: rgba($accent-cream, 0.05);
+    border-color: $accent-cream;
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 480px) { width: 100%; padding: 0.85rem 2rem; }
+}
+
+// --- 2. ABOUT US SECTION ---
+.about {
+  background-color: $bg-card;
+  position: relative;
+  z-index: 5; 
+  width: 100%;
+  min-height: 100vh; 
+  display: flex;
+  overflow: hidden; 
+
+  .aboutGrid {
+    display: flex;
+    width: 100%;
+    align-items: stretch; 
+
+    @media (max-width: 968px) { flex-direction: column; }
+  }
+  
+  .aboutImageSide {
+    position: relative; 
+    width: 50%;
+    min-height: 100vh; 
+
+    @media (max-width: 968px) { width: 100%; min-height: 400px; }
+  }
+
+  .aboutImage {
+    object-fit: cover !important; 
+    object-position: center;
+  }
+
+  .aboutTextSide {
+    width: 50%;
+    padding: 8rem 6% 8rem 10%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative; 
+
+    @media (max-width: 968px) {
+      width: 100%;
+      padding: 5rem 6%;
+      text-align: center;
+      align-items: center;
+    }
+  }
+
+  h2 { 
+    font-family: $font-serif; 
+    font-size: 3.8rem; 
+    font-weight: 400; 
+    margin: 1.2rem 0 1.8rem; 
+    line-height: 1.2; 
+
+    @media (max-width: 1200px) { font-size: 3rem; }
+    @media (max-width: 768px) { font-size: 2.6rem; }
+    @media (max-width: 480px) { font-size: 2.1rem; }
+  }
+  
+  p { 
+    color: $text-muted; 
+    font-size: 1.15rem; 
+    line-height: 1.8; 
+    margin-bottom: 2.5rem; 
+    position: relative;
+    z-index: 2; 
+
+    @media (max-width: 480px) { font-size: 1rem; }
+  }
+  
+  .sectionSubtitle { font-family: $font-serif; font-style: italic; color: $accent-gold; font-size: 1.4rem; }
+
+  .bullets {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    text-align: right;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    
+    @media (max-width: 968px) { justify-items: start; }
+    @media (max-width: 576px) { grid-template-columns: 1fr; }
+    
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: $accent-cream;
+      font-size: 1.05rem;
+      span { color: $accent-gold; font-weight: bold; }
+    }
+  }
+
+  .floatingLeaves {
+    position: absolute;
+    left: -40px; 
+    bottom: -20px;
+    z-index: 1;
+    pointer-events: none; 
+    opacity: 0.9;
+
+    @media (max-width: 1200px) { left: -90px; opacity: 0.6; }
+    @media (max-width: 968px) { display: none; }
+  }
+}
+
+// --- 3. POPULAR PICKS SECTION ---
+// --- 3. POPULAR PICKS SECTION (تحديث نظام الكاروسيل والأسهم) ---
+// --- 3. POPULAR PICKS SECTION ---
+@import '../styles/variables';
+
+// === 🌟 تحديث سكشن الأكثر مبيعاً ورواجاً الشامل ===
+.popular {
+  padding: 5rem 8%;
+  background-color: $bg-dark;
+  text-align: center;
+  direction: rtl;
+  @media (max-width: 768px) { padding: 4rem 5%; }
+}
+
+.sectionSubtitle {
+  display: block;
+  font-size: 0.85rem;
+  color: $accent-gold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.sectionTitle {
+  font-family: $font-serif;
+  font-size: 2.3rem;
+  color: #fff;
+  margin-bottom: 3.5rem;
+  @media (max-width: 576px) { font-size: 1.8rem; margin-bottom: 2.5rem; }
+}
+
+.carouselContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+// شريط الكروت القابل للتمرير الأفقي الناعم
+.sliderTrack {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1.5rem 0.5rem;
+  width: 100%;
+  scrollbar-width: none; // إخفاء شريط التمرير الافتراضي في فايرفوكس
+  &::-webkit-scrollbar { display: none; } // إخفاء شريط التمرير في كروم وسفاري
+  
+  @media (max-width: 768px) { gap: 1.2rem; }
+}
+
+// 🛠️ إعادة هيكلة الكارد الفخم ليتطابق 100% مع شكل المنيو الجديد
+.card {
+  background-color: $bg-card;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba($accent-gold, 0.04);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  min-width: 280px; // عرض ثابت للكروت داخل السلايدر الأفقي لضمان عدم الانكماش
+  width: 280px;
+  flex-shrink: 0;
+  transition: $smooth;
+  text-align: right; // محاذاة النصوص لليمين مثل المنيو
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba($accent-gold, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: #fff;
+    font-weight: 600;
+    padding: 0 1.2rem;
+    margin-top: 1.2rem;
+  }
+}
+
+// حاوية الصورة المجهزة للسلايدر التلقائي والأقسام العائمة
+.cardImg {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background-color: lighten($bg-dark, 2%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s $smooth;
+  }
+}
+
+// 🛠️ حقن بادجات الخصم والقسم العائمة المحترفة فوق الصورة بالملي
+.discountBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  z-index: 12;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.categoryBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba($bg-dark, 0.8);
+  color: $accent-gold;
+  border: 1px solid rgba($accent-gold, 0.2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 12;
+  backdrop-filter: blur(4px);
+}
+
+// تنسيق وصف المنتج المختصر (3 أسطر ناعمة مسطرة)
+.cardDesc {
+  font-size: 0.85rem;
+  color: $text-muted;
+  line-height: 1.6;
+  padding: 0 1.2rem;
+  margin-top: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 4.8em;
+}
+
+// الفوتر السفلي داخل الكارد لتوزيع السعر والزرار
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem;
+  margin-top: auto;
+}
+
+// زون الأسعار الذكية المزدوجة
+.priceZone {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.price {
+  font-size: 1.2rem;
+  color: $accent-gold;
+  font-weight: 700;
+  font-family: $font-serif;
+}
+
+.oldPrice {
+  font-size: 0.85rem;
+  color: rgba($text-muted, 0.6);
+  text-decoration: line-through;
+  font-family: $font-serif;
+}
+
+// زرار إضافة للسلة الدائري الفخم والمتوهج عند الهوفر
+.btnCart {
+  background-color: rgba($accent-gold, 0.08);
+  border: 1px solid rgba($accent-gold, 0.2);
+  color: $accent-gold;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: $smooth;
+
+  &:hover {
+    background-color: $accent-gold;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba($accent-gold, 0.2);
+  }
+}
+
+// أسهم التحكم الجانبية الفخمة للسلايدر
+.arrowBtn {
+  background: rgba($bg-card, 0.9);
+  border: 1px solid rgba($accent-gold, 0.1);
+  color: $accent-gold;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  z-index: 20;
+  transition: $smooth;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background: $accent-gold;
+    color: #fff;
+    border-color: $accent-gold;
+    box-shadow: 0 5px 20px rgba($accent-gold, 0.3);
+  }
+
+  @media (max-width: 768px) { display: none; } // إخفاء الأسهم الجانبية في الموبايل والاعتماد على التمرير بالإصبع
+}
+
+.arrowRight { right: -25px; }
+.arrowLeft { left: -25px; }
+
+.viewMenuAction {
+  margin-top: 3.5rem;
+}
+
+// كود لودر الانتظار الداخلي للـ Popular Picks
+.loadingBoxInside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 4rem 0;
+  gap: 1rem;
+  color: $text-muted;
+  .spinner { color: $accent-gold; animation: spin 1s linear infinite; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+  // تصميم زر المنيو المفرغ الفخم المتناسق مع الهوية
+  .btnPrimaryOutline {
+    background: transparent;
+    color: $accent-gold;
+    border: 1px solid rgba($accent-gold, 0.4);
+    padding: 1rem 3rem;
+    border-radius: 30px;
+    font-family: $font-sans;
+    font-size: 1.05rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: $smooth;
+
+    &:hover {
+      background: $accent-gold;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba($accent-gold, 0.25);
+      transform: translateY(-3px);
+    }
+  }
+
+
+// --- 🆕 سكشن شريط الميزات الفخم (Features Infobar) ---
+.featuresInfobar {
+  padding: 0 8% 4rem; // بادينج متناسق ليفصل بين الأقسام والفوتر
+  background-color: $bg-dark;
+  position: relative;
+  z-index: 5;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 0 5% 3rem;
+  }
+
+  .infobarGrid {
+    background-color: $bg-card; // نفس درجة لون خلفية كروت المنيو و About لتوحيد الهوية
+    border: 1px solid rgba($accent-gold, 0.08); // إطار ذهبي خفيف جداً يحدد الكارت كالتصميم الأصلي
+    padding: 2.2rem 3rem;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); // 4 عناصر متساوية بالظبط
+    gap: 2rem;
+    width: 100%;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr); // يقلب صفين في الشاشات المتوسطة والتابلت
+      gap: 2.5rem;
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr; // يترتب عمودياً بشكل نظيف على الموبايل
+      padding: 2rem 1.5rem;
+      gap: 2rem;
+    }
+  }
+
+  .infoItem {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: right; // محاذاة لليمين متوافقة مع الـ RTL العربي
+    transition: $smooth;
+
+    @media (max-width: 576px) {
+      justify-content: flex-start;
+    }
+  }
+
+  .infoIconWrapper {
+    background-color: rgba($bg-dark, 0.6); // خلفية أغمق للأيقونة لتعطي عمق بVisual فخم
+    color: $accent-gold; // لون ذهبي برونزي دافئ للأيقونات مثل الصورة تماماً
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba($accent-gold, 0.15);
+    flex-shrink: 0; // يمنع انضغاط الدائرة في الشاشات الصغيرة
+    transition: $smooth;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background-color: $accent-gold;
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba($accent-gold, 0.25);
+    }
+  }
+
+  .infoText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    h4 {
+      font-family: $font-sans;
+      color: $accent-cream;
+      font-size: 1.1rem;
+      font-weight: 700;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+      }
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      white-space: nowrap; // يمنع النزول لسطر جديد بشكل مشوه في الشاشات المتوسطة
+
+      @media (max-width: 1200px) {
+        white-space: normal; // السماح بالنزول الطبيعي في المساحات الحرجة جداً
+      }
+    }
+  }
+}
+
+// ==========================================
+// 🆕 INTERACTIVE TIMELINE SECTION (التايم لاين التفاعلي)
+// ==========================================
+
+.interactiveTimeline {
+  background: $bg-dark;
+  padding: 6rem 8%;
+  position: relative;
+  overflow: hidden;
+  direction: rtl;
+
+  @media (max-width: 768px) {
+    padding: 4rem 5%;
+  }
+}
+
+.timelineHeader {
+  text-align: center;
+  margin-bottom: 5rem;
+  
+  .sectionSubtitle {
+    color: $accent-gold;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  .sectionTitle {
+    font-family: $font-serif;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-top: 0.5rem;
+    @media (max-width: 576px) { font-size: 1.8rem; }
+  }
+}
+
+.timelineContainer {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  @media (max-width: 768px) {
+    gap: 3rem;
+  }
+}
+
+// 🛠️ الخط المركزي الذكي (يتحول لليمن في الموبايل)
+.centerLine {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  background: linear-gradient(to bottom, $accent-gold, lighten($accent-gold, 15%));
+  height: 0%; // الـ GSAP بيتحكم في الطول لايف
+  z-index: 5;
+  box-shadow: 0 0 15px rgba($accent-gold, 0.3);
+
+  @media (max-width: 768px) {
+    left: auto;
+    right: 25px; // نقله لليمين تماماً في الموبايل لترك مساحة للداتا
+    transform: none;
+  }
+}
+
+// السطر الرئيسي للـ Step
+.timelineRow {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  align-items: center;
+  position: relative;
+  z-index: 6;
+
+  // 🛠️ تحويل الهيكلة لعمود واحد مريح للعين في الشاشات الصغيرة
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding-right: 60px; // مسافة أمان عشان الكلام ميبقاش لزق في الخط
+    text-align: right;
+    gap: 1.5rem;
+  }
+}
+
+// عكس الصفوف (يمين / يسار) في الشاشات الكبيرة فقط
+.reverseRow {
+  @media (min-width: 769px) {
+    grid-template-columns: 1fr 80px 1fr;
+    .textBlock { grid-column: 3; order: 2; text-align: right; }
+    .imageBlock { grid-column: 1; order: 1; display: flex; justify-content: flex-end; }
+  }
+}
+
+// بلوك النصوص
+.textBlock {
+  background: rgba($bg-card, 0.2);
+  border: 1px solid rgba(255,255,255,0.02);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  text-align: left;
+
+  @media (max-width: 768px) {
+    text-align: right;
+    padding: 1.5rem;
+  }
+
+  .stepNumber {
+    font-family: $font-serif;
+    font-size: 2rem;
+    color: rgba($accent-gold, 0.15);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+    @media (max-width: 768px) { font-size: 1.6rem; }
+  }
+
+  h3 { color: #fff; font-size: 1.4rem; margin-bottom: 0.8rem; font-weight: 600; }
+  p { color: $text-muted; font-size: 0.9rem; line-height: 1.6; }
+}
+
+// حاوية الأيقونة المركزية
+.centerNodeWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    right: 25px; // تثبيتها فوق الخط الجديد على اليمين بالظبط
+    top: 0;
+    transform: translateX(50%);
+    height: auto;
+  }
+}
+
+// الدائرة المضيئة (الـ Node)
+.centerCircleNode {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba($accent-gold, 0.3);
+  background: #18110c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  z-index: 10;
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    width: 42px;
+    height: 42px;
+  }
+
+  .nodeIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    svg { @media (max-width: 768px) { width: 18px; height: 18px; } }
+  }
+}
+
+// بلوك الصور
+.imageBlock {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    justify-content: filter-start;
+    padding-right: 0;
+  }
+}
+
+.pngWrapper {
+  position: relative;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
+}
+
+.stepPng {
+  object-fit: contain;
+  max-width: 100%;
+  height: auto;
+  @media (max-width: 768px) {
+    width: 140px; // تصغير حجم الصور قليلاً لتناسب شاشات الموبايل
+  }
+}

@@ -1,0 +1,118 @@
+@import '../../styles/variables';
+
+.footer {
+  background-color: $bg-dark;
+  border-top: 1px solid rgba($accent-gold, 0.1);
+  padding: 5rem 8% 2rem;
+  font-family: $font-sans;
+  color: $accent-cream;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 4rem;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footerColumn {
+  h3 {
+    font-family: $font-serif;
+    color: $accent-gold;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+
+  p {
+    color: $text-muted;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    
+    li {
+      margin-bottom: 0.8rem;
+      a {
+        color: $text-muted;
+        text-decoration: none;
+        transition: $smooth;
+        font-size: 0.95rem;
+        &:hover { color: $accent-gold; padding-right: 5px; }
+      }
+    }
+  }
+}
+
+.subscribeBox {
+  display: flex;
+  background: $bg-card;
+  border: 1px solid rgba($accent-gold, 0.2);
+  border-radius: 30px;
+  padding: 0.3rem;
+  margin-bottom: 1.5rem;
+
+  input {
+    background: transparent;
+    border: none;
+    padding: 0.6rem 1rem;
+    color: $accent-cream;
+    width: 100%;
+    font-family: $font-sans;
+    outline: none;
+    &::placeholder { color: rgba($text-muted, 0.5); }
+  }
+
+  button {
+    background: $accent-gold;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: $smooth;
+    transform: rotate(180deg); // لأننا اتجاه عربي والزرار سهم يمين
+    &:hover { background: lighten($accent-gold, 7%); }
+  }
+}
+
+.socials {
+  display: flex;
+  gap: 1rem;
+  a {
+    color: $text-muted;
+    transition: $smooth;
+    &:hover { color: $accent-gold; }
+  }
+}
+
+.contactList {
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: $text-muted;
+    font-size: 0.95rem;
+    svg { color: $accent-gold; }
+  }
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba($accent-cream, 0.05);
+  color: rgba($text-muted, 0.6);
+  font-size: 0.9rem;
+}

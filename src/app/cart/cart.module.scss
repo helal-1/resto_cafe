@@ -1,0 +1,257 @@
+@import '../../styles/variables';
+
+// 🛠️ تثبيت صفحة التحميل (Spinner) لتكون ملء الشاشة بالكامل وبخلفية متناسقة
+.loadingBox {
+  background-color: $bg-dark;
+  background-image: radial-gradient(circle at 50% 50%, rgba($accent-gold, 0.02) 0%, transparent 80%);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  color: $accent-cream;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  
+  p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+}
+
+.cartPageWrapper { 
+  background-color: $bg-dark; 
+  min-height: 100vh; 
+  padding-top: 100px; 
+  color: $accent-cream; 
+  font-family: $font-sans; 
+  direction: rtl; 
+}
+
+.cartHeader { 
+  text-align: center; 
+  padding: 4rem 1rem 1rem; 
+  h1 { 
+    font-family: $font-serif; 
+    font-size: 2.8rem; 
+    color: #fff; 
+    @media (max-width: 576px) { font-size: 2.2rem; }
+    span { color: $accent-gold; } 
+  } 
+  p { color: $text-muted; font-size: 0.95rem; margin-top: 0.5rem; padding: 0 1rem; } 
+}
+
+.cartLayout { 
+  padding: 2rem 8%; 
+  @media (max-width: 992px) { padding: 2rem 4%; } 
+}
+
+.emptyCart { 
+  text-align: center; 
+  padding: 6rem 1rem; 
+  color: $text-muted; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 1.2rem; 
+  svg { color: rgba($accent-gold, 0.2); } 
+  h3 { color: #fff; font-size: 1.5rem; } 
+  .menuLink { 
+    background: $accent-gold; 
+    color: #fff; 
+    padding: 0.8rem 2rem; 
+    border-radius: 10px; 
+    text-decoration: none; 
+    font-weight: 600; 
+    margin-top: 1rem; 
+    transition: $smooth; 
+    &:hover { background: lighten($accent-gold, 5%); } 
+  } 
+}
+
+.cartGrid { 
+  display: grid; 
+  grid-template-columns: 1fr 360px; 
+  gap: 3rem; 
+  align-items: flex-start; 
+  @media (max-width: 992px) { grid-template-columns: 1fr; gap: 2.5rem; } 
+}
+
+.itemsList { display: flex; flex-direction: column; gap: 1.2rem; }
+
+// 🛠️ تطوير هيكل كارت المنتج ليكون ريسلونسيف ومحاذاة مثالية في الشاشات الصغيرة
+.cartCard { 
+  background-color: $bg-card; 
+  border: 1px solid rgba($accent-gold, 0.04); 
+  border-radius: 16px; 
+  padding: 1.2rem; 
+  display: flex; 
+  align-items: center; 
+  gap: 1.5rem; 
+  position: relative;
+  transition: $smooth;
+
+  &:hover {
+    border-color: rgba($accent-gold, 0.12);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  @media (max-width: 576px) { 
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: center;
+  } 
+}
+
+.productImgWrapper { 
+  position: relative; 
+  width: 80px; 
+  height: 80px; 
+  border-radius: 12px; 
+  overflow: hidden; 
+  flex-shrink: 0; 
+  img { object-fit: cover; } 
+  @media (max-width: 576px) { grid-column: 1; grid-row: 1 / span 2; }
+}
+
+.productDetails { 
+  flex-grow: 1; 
+  text-align: right; 
+  h4 { color: #fff; font-size: 1.1rem; margin-bottom: 0.3rem; } 
+  .unitPrice { color: $text-muted; font-size: 0.9rem; } 
+  @media (max-width: 576px) { grid-column: 2; grid-row: 1; }
+}
+
+// 🛠️ تحسين مساحة أزرار التحكم بالكمية والتسعير في الموبايل لتقفل سطر أفقي أنيق
+.quantityControls { 
+  display: flex; 
+  align-items: center; 
+  background: $bg-dark; 
+  border-radius: 10px; 
+  border: 1px solid rgba(255,255,255,0.02); 
+  padding: 4px; 
+  
+  .qtyBtn { 
+    background: transparent; 
+    border: none; 
+    color: $accent-cream; 
+    width: 30px; 
+    height: 30px; 
+    cursor: pointer; 
+    border-radius: 6px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: $smooth;
+    &:hover:not(:disabled) { background: rgba($accent-gold, 0.1); color: $accent-gold; } 
+    &:disabled { opacity: 0.3; } 
+  } 
+  .qtyNumber { width: 32px; text-align: center; font-weight: 600; font-size: 0.95rem; } 
+  
+  @media (max-width: 576px) { 
+    grid-column: 2; 
+    grid-row: 2; 
+    justify-self: start;
+    height: 36px;
+  }
+}
+
+.totalPriceZone { 
+  font-size: 1.1rem; 
+  font-weight: 700; 
+  color: $accent-gold; 
+  font-family: $font-serif; 
+  min-width: 90px; 
+  text-align: left; 
+  
+  @media (max-width: 576px) { 
+    position: absolute;
+    left: 1.2rem;
+    top: 1.2rem;
+    text-align: left;
+  } 
+}
+
+.deleteBtn { 
+  background: transparent; 
+  border: none; 
+  color: rgba(#e74c3c, 0.6); 
+  cursor: pointer; 
+  transition: $smooth; 
+  &:hover { color: #e74c3c; transform: scale(1.1); } 
+  
+  @media (max-width: 576px) { 
+    position: absolute;
+    left: 1.2rem;
+    bottom: 1.2rem;
+  } 
+}
+
+.orderSummary { 
+  background-color: $bg-card; 
+  border: 1px solid rgba($accent-gold, 0.08); 
+  border-radius: 20px; 
+  padding: 2rem; 
+  @media (max-width: 576px) { padding: 1.5rem; }
+  h3 { font-family: $font-serif; font-size: 1.3rem; color: #fff; margin-bottom: 1.5rem; border-bottom: 1px solid rgba($accent-gold, 0.1); padding-bottom: 0.5rem; } 
+}
+
+.summaryRows { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.summaryRow { 
+  display: flex; 
+  justify-content: space-between; 
+  font-size: 0.95rem; 
+  color: rgba($accent-cream, 0.7); 
+  &.discountRow { color: #2ecc71; svg { vertical-align: middle; } } 
+  &.finalTotal { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; margin-top: 0.5rem; font-size: 1.2rem; font-weight: 700; color: #fff; span:last-child { color: $accent-gold; font-family: $font-serif; } } 
+}
+
+.checkoutBtn { 
+  background: $accent-gold; 
+  color: #fff; 
+  border: none; 
+  height: 52px; 
+  border-radius: 12px; 
+  font-weight: 600; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 0.8rem; 
+  width: 100%; 
+  transition: $smooth; 
+  &:hover:not(:disabled) { background: lighten($accent-gold, 5%); box-shadow: 0 8px 25px rgba($accent-gold, 0.15); } 
+  &:disabled { opacity: 0.5; } 
+}
+
+.continueShopping { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 0.5rem; 
+  color: $text-muted; 
+  text-decoration: none; 
+  font-size: 0.85rem; 
+  margin-top: 1.2rem; 
+  transition: $smooth; 
+  &:hover { color: $accent-gold; svg { transform: translateX(-3px); } } 
+  svg { transition: $smooth; } 
+}
+
+.spinner { 
+  animation: spin 1s linear infinite; 
+  color: $accent-gold;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }

@@ -1,0 +1,34 @@
+// اتأكد إن ده موجود في أول سطر بالظبط
+@import '@/styles/variables';
+
+.zone {
+  background: rgba(24, 17, 12, 0.6);
+  padding: 2rem;
+  border-radius: 20px;
+  color: #fff;
+  border: 1px solid rgba(181, 131, 90, 0.2);
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    th, td { padding: 15px; border-bottom: 1px solid #333; text-align: right; }
+  }
+
+  .whatsappBtn {
+    background: #25d366;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+  }
+}
+.miniImg { 
+  width: 30px; 
+  height: 30px; 
+  border-radius: 5px; 
+  object-fit: cover; 
+}
+.itemList { list-style: none; padding: 0; margin-top: 10px; }
+.itemRow { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }

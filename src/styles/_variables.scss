@@ -1,0 +1,12 @@
+// نضمن الخطوط من Google Fonts في ملف الـ Global لاحقاً أو الـ Layout
+$font-serif: 'Amiri', Georgia, serif; // للشغل الكلاسيكي الفخم والعناوين
+$font-sans: 'Tajawal', sans-serif;    // للنصوص العادية والقوائم
+
+// Colors
+$bg-dark: #0f0a07;
+$bg-card: #18110c;
+$accent-cream: #f4eae1;
+$accent-gold: #b5835a;
+$text-muted: #a6968a;
+
+$smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);

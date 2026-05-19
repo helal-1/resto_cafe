@@ -1,0 +1,218 @@
+@import '@/styles/variables';
+
+.aboutWrapper {
+  background: $bg-dark;
+  color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
+  direction: rtl;
+}
+
+// 1. HERO ZONE
+.aboutHero {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  background-image: url('/herobanner (1).jpeg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 5%;
+
+  .heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), $bg-dark);
+    z-index: 1;
+  }
+
+  .heroContent {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+
+    .tagline {
+      color: $accent-gold;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .heroTitle {
+      font-family: $font-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      
+      span { color: $accent-gold; }
+      @media (max-width: 768px) { font-size: 2rem; }
+    }
+
+    .heroDesc {
+      color: $text-muted;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      @media (max-width: 768px) { font-size: 0.95rem; }
+    }
+  }
+}
+
+// 2. STORY GRID
+.storySection {
+  padding: 6rem 8%;
+  @media (max-width: 768px) { padding: 4rem 5%; }
+}
+
+.storyGrid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .textSide {
+    .titleZone {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+
+      .goldIcon { color: $accent-gold; }
+      h2 { font-size: 2rem; color: #fff; font-weight: 600; @media (max-width: 576px) { font-size: 1.6rem; } }
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+      text-align: justify;
+    }
+  }
+
+  .imageSide {
+    .imageContainer {
+      position: relative;
+      height: 450px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba($accent-gold, 0.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      @media (max-width: 768px) { height: 300px; }
+
+      .storyImg {
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+    }
+  }
+}
+
+// 3. VALUES & STATS SECTION
+.statsSection {
+  background: rgba($bg-card, 0.2);
+  padding: 6rem 8%;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+  @media (max-width: 768px) { padding: 4rem 5%; }
+
+  .sectionHeader {
+    text-align: center;
+    margin-bottom: 4rem;
+    h2 { font-size: 2rem; color: #fff; margin-bottom: 0.5rem; @media (max-width: 576px) { font-size: 1.6rem; } }
+    p { color: $text-muted; font-size: 0.95rem; }
+  }
+}
+
+.statsGrid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+
+  @media (max-width: 992px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 576px) { grid-template-columns: 1fr; }
+
+  .statCard {
+    background: #18110c;
+    border: 1px solid rgba($accent-gold, 0.08);
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: rgba($accent-gold, 0.3);
+    }
+
+    .iconBox {
+      background: rgba($accent-gold, 0.08);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $accent-gold;
+      margin: 0 auto 1.2rem;
+    }
+
+    h3 { font-family: $font-serif; font-size: 1.8rem; color: #fff; margin-bottom: 0.4rem; font-weight: 700; }
+    p { color: $text-muted; font-size: 0.85rem; line-height: 1.4; }
+  }
+}
+
+// 4. CTA ZONE
+.ctaSection {
+  padding: 6rem 8%;
+  display: flex;
+  justify-content: center;
+  @media (max-width: 768px) { padding: 4rem 5%; }
+}
+
+.ctaCard {
+  background: linear-gradient(135deg, #231912 0%, #130d09 100%);
+  border: 1px solid rgba($accent-gold, 0.2);
+  width: 100%;
+  max-width: 900px;
+  padding: 4rem 2rem;
+  border-radius: 30px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+
+  h2 { font-size: 2.2rem; color: #fff; margin-bottom: 0.8rem; @media (max-width: 576px) { font-size: 1.6rem; } }
+  p { color: $text-muted; max-width: 600px; margin: 0 auto 2rem; line-height: 1.6; font-size: 1rem; }
+
+  .ctaBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: $accent-gold;
+    color: #fff;
+    padding: 0.9rem 2.2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+
+    &:hover {
+      transform: scale(1.03);
+      background: lighten($accent-gold, 5%);
+    }
+  }
+}

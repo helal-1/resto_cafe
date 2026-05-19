@@ -1,0 +1,16 @@
+@import '../../../styles/variables';
+.container { width: 100%; }
+.title { font-family: $font-serif; font-size: 2rem; color: #fff; margin-bottom: 2.5rem; span { color: $accent-gold; } }
+.form { background-color: $bg-card; padding: 3rem; border-radius: 20px; display: flex; flex-direction: column; gap: 2rem; width: 100%; border: 1px solid rgba($accent-gold, 0.05); }
+.row { display: flex; gap: 1.5rem; @media (max-width: 576px) { flex-direction: column; } }
+.rowThree { display: flex; gap: 1.5rem; width: 100%; @media (max-width: 768px) { flex-direction: column; } }
+.imgTitle { font-size: 1rem; color: $accent-gold; display: flex; align-items: center; gap: 0.6rem; border-bottom: 1px solid rgba($accent-gold, 0.1); padding-bottom: 0.8rem; }
+.group { display: flex; flex-direction: column; gap: 0.5rem; flex-grow: 1; label { font-size: 0.85rem; color: rgba($accent-cream, 0.6); display: flex; align-items: center; gap: 0.4rem; } input, select, textarea { background-color: $bg-dark; border: 1px solid rgba($accent-gold, 0.15); height: 50px; border-radius: 10px; padding: 0 1rem; color: #fff; outline: none; &:focus { border-color: $accent-gold; } } textarea { height: auto; padding: 1.2rem; resize: vertical; } }
+.upCard { flex-grow: 1; display: flex; flex-direction: column; gap: 0.6rem; label { font-size: 0.85rem; color: rgba($accent-cream, 0.6); } }
+.box { height: 120px; background-color: $bg-dark; border: 2px dashed rgba($accent-gold, 0.25); border-radius: 12px; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; &:hover { border-color: $accent-gold; } }
+.fileInput { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 5; }
+.placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: $text-muted; font-size: 0.85rem; svg { color: rgba($accent-gold, 0.6); } }
+.spin { color: $accent-gold; animation: spin 1s linear infinite; }
+.preview { position: absolute; top: 0; left: 0; width: 100%; height: 100%; .check { position: absolute; bottom: 8px; right: 8px; background-color: rgba(#2ecc71, 0.9); color: #fff; font-size: 0.75rem; padding: 2px 8px; border-radius: 20px; display: flex; align-items: center; gap: 4px; font-weight: 600; } }
+.btn { background: $accent-gold; color: #fff; border: none; height: 54px; border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; width: 100%; margin-top: 1.5rem; &:hover { background: lighten($accent-gold, 5%); } }
+@keyframes spin { to { transform: rotate(360deg); } }
