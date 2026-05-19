@@ -10,9 +10,10 @@ import Link from "next/link";
 import { StatsTab } from "./StatsTab";
 import { ProductsTab } from "./ProductsTab";
 import { AddProductTab } from "./AddProductTab";
-import { OrdersTab } from "./OrdersTab";
+// import { OrdersTab } from "./OrdersTab";
 import { ShippingTab } from "./ShippingTab";
 import { UsersTab } from "./UsersTab";
+import { OrdersTab, Props as OrdersTabProps } from "./OrdersTab";
 
 import styles from "./dashboard.module.scss";
 
@@ -139,7 +140,7 @@ export default function AdminDashboard() {
                 {activeTab === TABS.STATS && <StatsTab orders={orders} products={products} users={users} />}
                 {activeTab === TABS.PRODUCTS && <ProductsTab products={products} setProducts={setProducts} showToast={showToast} />}
                 {activeTab === TABS.ADD_PRODUCT && <AddProductTab setProducts={setProducts} refreshData={triggerRefresh} showToast={showToast} switchToProducts={() => setActiveTab(TABS.PRODUCTS)} />}
-                {activeTab === TABS.ORDERS && <OrdersTab orders={orders} refresh={triggerRefresh} />}
+{activeTab === TABS.ORDERS && <OrdersTab orders={orders} refresh={triggerRefresh as any} />}
                 {activeTab === TABS.SHIPPING && <ShippingTab shipping={shipping} />}
                 {activeTab === TABS.USERS && <UsersTab users={users} />}
               </motion.div>

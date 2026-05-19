@@ -24,9 +24,9 @@ interface Order {
   phone: string;
 }
 
-interface Props {
+export interface Props {
   orders: Order[];
-  refresh: () => Promise<void>; // غيرناها لـ Promise<void> عشان تطابق الدالة في الـ page.tsx
+  refresh: () => Promise<void>;
 }
 
 export function OrdersTab({ orders, refresh }: Props) {
