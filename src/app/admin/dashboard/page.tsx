@@ -18,7 +18,16 @@ import styles from "./dashboard.module.scss";
 
 export interface Product { id: number; category: string; name: string; price: number; img: string; rate: number; }
 // عدلنا الواجهة عشان تطابق اللي بتبعتة سوبابيس (items بتبقى JSON)
-export interface Order { id: number; customer_name: string; total_price: number; status: "pending" | "approved" | "rejected"; items: any; }
+// عدل هذا السطر في ملف src/app/admin/dashboard/page.tsx ليصبح:
+export interface Order { 
+  id: number; 
+  customer_name: string; 
+  total_price: number; 
+  status: "pending" | "approved" | "rejected"; 
+  items: any; 
+  address: string; // أضفنا الحقل ده
+  phone: string;   // وأضفنا الحقل ده
+}
 export interface ShippingZone { id: number; city: string; cost: number; }
 export interface UserProfile { id: number; full_name: string; email: string; role: "admin" | "user"; }
 

@@ -26,7 +26,7 @@ interface Order {
 
 interface Props {
   orders: Order[];
-  refresh: () => void;
+  refresh: () => Promise<void>; // غيرناها لـ Promise<void> عشان تطابق الدالة في الـ page.tsx
 }
 
 export function OrdersTab({ orders, refresh }: Props) {
