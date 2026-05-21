@@ -14,14 +14,15 @@ interface CartItem {
   quantity: number;
 }
 
-interface Order {
-  id: number;
-  customer_name: string;
-  total_price: number;
-  status: "pending" | "approved" | "rejected";
-  items: string | CartItem[];
-  address: string;
-  phone: string;
+// السطر 20 تقريباً في page.tsx
+export interface Order { 
+  id: number; 
+  customer_name: string; 
+  total_price: number; 
+  status: "pending" | "approved" | "rejected"; 
+  items: any; 
+  address: string; // أضف هذا
+  phone: string;   // أضف هذا
 }
 
 export interface Props {

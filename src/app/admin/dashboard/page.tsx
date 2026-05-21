@@ -140,7 +140,12 @@ export default function AdminDashboard() {
                 {activeTab === TABS.STATS && <StatsTab orders={orders} products={products} users={users} />}
                 {activeTab === TABS.PRODUCTS && <ProductsTab products={products} setProducts={setProducts} showToast={showToast} />}
                 {activeTab === TABS.ADD_PRODUCT && <AddProductTab setProducts={setProducts} refreshData={triggerRefresh} showToast={showToast} switchToProducts={() => setActiveTab(TABS.PRODUCTS)} />}
-{activeTab === TABS.ORDERS && <OrdersTab orders={orders} refresh={triggerRefresh as any} />}
+{activeTab === TABS.ORDERS && (
+  <OrdersTab 
+    orders={orders as any} 
+    refresh={triggerRefresh} 
+  />
+)}
                 {activeTab === TABS.SHIPPING && <ShippingTab shipping={shipping} />}
                 {activeTab === TABS.USERS && <UsersTab users={users} />}
               </motion.div>
