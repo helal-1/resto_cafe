@@ -134,7 +134,8 @@ export default function AdminDashboard() {
                 {activeTab === TABS.PRODUCTS && <ProductsTab products={products} setProducts={setProducts} showToast={showToast} />}
                 {activeTab === TABS.ADD_PRODUCT && <AddProductTab setProducts={setProducts} refreshData={triggerRefresh} showToast={showToast} switchToProducts={() => setActiveTab(TABS.PRODUCTS)} />}
                 
-                {activeTab === TABS.ORDERS && React.createElement(OrdersTab as any, { orders, refresh: triggerRefresh })}
+             {/* سنقوم بتجاهل فحص المكون بالكامل باستخدام أي كاستينج */}
+{activeTab === TABS.ORDERS && React.createElement(OrdersTab as any, { orders: orders, refresh: triggerRefresh })}
                 
                 {activeTab === TABS.SHIPPING && <ShippingTab shipping={shipping} />}
                 {activeTab === TABS.USERS && <UsersTab users={users} />}

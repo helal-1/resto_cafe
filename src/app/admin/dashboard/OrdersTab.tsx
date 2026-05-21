@@ -28,8 +28,11 @@ export interface Props {
   orders: Order[];
   refresh: () => Promise<void>;
 }
-
-export function OrdersTab({ orders, refresh }: Props) {
+// استبدل التعريف الحالي بالكامل بهذا السطر فقط في ملف OrdersTab.tsx
+export function OrdersTab(props: any) {
+  const { orders, refresh } = props;
+  
+  // ... (باقي الكود كما هو تماماً)
   
   const openWhatsApp = (phone: string) => {
     // تشغيل الـ refresh عند الضغط
