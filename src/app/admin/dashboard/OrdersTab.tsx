@@ -29,8 +29,7 @@ export interface Props {
   orders: Order[];
   refresh: () => Promise<void>;
 }
-
-export function OrdersTab({ orders, refresh }: Props) {
+export function OrdersTab({ orders, refresh }: any) {
   
   const openWhatsApp = (phone: string) => {
     // تشغيل الـ refresh عند الضغط (اختياري حسب رغبتك)
