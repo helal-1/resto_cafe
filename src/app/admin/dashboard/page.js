@@ -16,19 +16,6 @@ import { OrdersTab } from "./OrdersTab";
 
 import styles from "./dashboard.module.scss";
 
-export interface Product { id: number; category: string; name: string; price: number; img: string; rate: number; }
-export interface Order { 
-  id: number; 
-  customer_name: string; 
-  total_price: number; 
-  status: "pending" | "approved" | "rejected"; 
-  items: any; 
-  address: string; 
-  phone: string; 
-}
-export interface ShippingZone { id: number; city: string; cost: number; }
-export interface UserProfile { id: number; full_name: string; email: string; role: "admin" | "user"; }
-
 const TABS = {
   STATS: "stats",
   PRODUCTS: "products",
@@ -42,16 +29,14 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState(TABS.STATS);
   const [loading, setLoading] = useState(true);
   
-  const [products, setProducts] = useState<Product[]>([]);
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [shipping, setShipping] = useState<ShippingZone[]>([]);
-  const [users, setUsers] = useState<UserProfile[]>([]);
+  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [shipping, setShipping] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  const [toast, setToast] = useState<{ show: boolean; msg: string; type: "success" | "error" | "warn" }>({
-    show: false, msg: "", type: "success"
-  });
+  const [toast, setToast] = useState({ show: false, msg: "", type: "success" });
 
-  const showToast = (msg: string, type: "success" | "error" | "warn" = "success") => {
+  const showToast = (msg, type = "success") => {
     setToast({ show: true, msg, type });
   };
 
@@ -72,7 +57,7 @@ export default function AdminDashboard() {
       ]);
       
       if (resProducts.data) setProducts(resProducts.data);
-      if (resOrders.data) setOrders(resOrders.data as Order[]);
+      if (resOrders.data) setOrders(resOrders.data);
       if (resShipping.data) setShipping(resShipping.data);
       if (resUsers.data) setUsers(resUsers.data);
     } catch (err) {
@@ -134,8 +119,7 @@ export default function AdminDashboard() {
                 {activeTab === TABS.PRODUCTS && <ProductsTab products={products} setProducts={setProducts} showToast={showToast} />}
                 {activeTab === TABS.ADD_PRODUCT && <AddProductTab setProducts={setProducts} refreshData={triggerRefresh} showToast={showToast} switchToProducts={() => setActiveTab(TABS.PRODUCTS)} />}
                 
-                {/* تم استخدام React.createElement لتجاوز فحص الأنواع الصارم في Vercel */}
-                {activeTab === TABS.ORDERS && React.createElement(OrdersTab as any, { orders: orders, refresh: triggerRefresh })}
+                {activeTab === TABS.ORDERS && <OrdersTab orders={orders} refresh={triggerRefresh} />}
                 
                 {activeTab === TABS.SHIPPING && <ShippingTab shipping={shipping} />}
                 {activeTab === TABS.USERS && <UsersTab users={users} />}
