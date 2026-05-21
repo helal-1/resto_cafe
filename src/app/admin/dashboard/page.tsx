@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BarChart3, Coffee, PlusCircle, ShoppingCart, Truck, Users, Loader2, CheckCircle2, AlertCircle, X } from "lucide-react";
 import { supabase } from "@/utils/supabase";
@@ -12,7 +12,6 @@ import { ProductsTab } from "./ProductsTab";
 import { AddProductTab } from "./AddProductTab";
 import { ShippingTab } from "./ShippingTab";
 import { UsersTab } from "./UsersTab";
-// استيراد المكون بدون تعقيدات الـ Types
 import { OrdersTab } from "./OrdersTab"; 
 
 import styles from "./dashboard.module.scss";
@@ -134,8 +133,9 @@ export default function AdminDashboard() {
                 {activeTab === TABS.STATS && <StatsTab orders={orders} products={products} users={users} />}
                 {activeTab === TABS.PRODUCTS && <ProductsTab products={products} setProducts={setProducts} showToast={showToast} />}
                 {activeTab === TABS.ADD_PRODUCT && <AddProductTab setProducts={setProducts} refreshData={triggerRefresh} showToast={showToast} switchToProducts={() => setActiveTab(TABS.PRODUCTS)} />}
-                {/* استخدام any لإجبار الـ Build على المرور */}
-                {activeTab === TABS.ORDERS && <OrdersTab orders={orders} refresh={triggerRefresh} {...({} as any)} />}
+                
+                {activeTab === TABS.ORDERS && React.createElement(OrdersTab as any, { orders, refresh: triggerRefresh })}
+                
                 {activeTab === TABS.SHIPPING && <ShippingTab shipping={shipping} />}
                 {activeTab === TABS.USERS && <UsersTab users={users} />}
               </motion.div>
