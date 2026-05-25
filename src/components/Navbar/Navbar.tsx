@@ -6,10 +6,16 @@ import { usePathname } from "next/navigation";
 import { Home, UtensilsCrossed, Info, Bookmark, ShoppingBag, Heart, User } from "lucide-react";
 import { supabase } from "@/utils/supabase"; 
 import styles from "./Navbar.module.scss";
+// 1. الاستيراد الجديد للـ Modal
+import ProfileModal from "@/app/profile/page"; 
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [userSession, setUserSession] = useState<boolean>(false);
+  
+  // 2. الحالة الجديدة للـ Popup
+  const [showProfile, setShowProfile] = useState(false);
+  const [userProfile, setUserProfile] = useState<any>(null);
   
   // 🛠️ عدادات ديناميكية حية بدل الأرقام الثابتة القديمة
   const [cartCount, setCartCount] = useState(0);
@@ -18,34 +24,55 @@ export default function Navbar() {
   const pathname = usePathname();
 
   // 🛠️ دالة جلب وحساب العدادات الحية مباشرة من سوبابيس
-  const refreshBadges = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
-      // 1. حساب إجمالي كميات السلة (مجموع حقل quantity)
-      const { data: cartData } = await supabase
-        .from("cart_items")
-        .select("quantity")
-        .eq("user_id", session.user.id);
-        
-      if (cartData) {
-        const totalQty = cartData.reduce((acc, curr) => acc + curr.quantity, 0);
-        setCartCount(totalQty);
-      } else {
-        setCartCount(0);
-      }
+const refreshBadges = async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) {
+    setUserSession(true);
 
-      // 2. حساب إجمالي عدد المجموعات المحفوظة بدقة
-      const { count: savedItemsCount } = await supabase
-        .from("saved_items")
-        .select("*", { count: "exact", head: true })
-        .eq("user_id", session.user.id);
-        
-      setSavedCount(savedItemsCount || 0);
+    // 1. جلب البروفايل بدون single() لتجنب خطأ الـ 404
+    const { data: profiles, error } = await supabase
+      .from("user_profiles")
+      .select("full_name, email, role")
+      .eq("id", session.user.id);
+
+    // التحقق إذا كان البروفايل موجوداً
+    if (profiles && profiles.length > 0) {
+      setUserProfile(profiles[0]);
     } else {
-      // لو مش مسجل دخول نصفر العدادات
-      setCartCount(0);
-      setSavedCount(0);
+      // لو المستخدم مسجل بس ملهوش بروفايل في جدول user_profiles
+      setUserProfile({ 
+        full_name: session.user.user_metadata?.full_name || "عميل ريستو", 
+        email: session.user.email, 
+        role: "user" 
+      });
     }
+
+    // 2. جلب العدادات
+    const { data: cartData } = await supabase
+      .from("cart_items")
+      .select("quantity")
+      .eq("user_id", session.user.id);
+    
+    setCartCount(cartData?.reduce((acc, curr) => acc + curr.quantity, 0) || 0);
+
+    const { count } = await supabase
+      .from("saved_items")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", session.user.id);
+      
+    setSavedCount(count || 0);
+  } else {
+    setUserSession(false);
+    setUserProfile(null);
+    setCartCount(0);
+    setSavedCount(0);
+  }
+};
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setShowProfile(false);
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -62,13 +89,13 @@ export default function Navbar() {
       refreshBadges();
     });
 
-    // الاستماع لأي تغيير في حالة الـ Auth (تسجيل دخول أو خروج) لتحديث الأيقونة والعدادات فوراً
+    // الاستماع لأي تغيير في حالة الـ Auth
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUserSession(!!session);
       refreshBadges();
     });
 
-    // 🛠️ الاستماع للأحداث الحية القادمة من زراير صفحة المنيو وصفحة السلة
+    // 🛠️ الاستماع للأحداث الحية
     window.addEventListener("cartUpdate", refreshBadges);
     window.addEventListener("savedUpdate", refreshBadges);
 
@@ -87,7 +114,6 @@ export default function Navbar() {
     { name: "المجموعات", path: "/saved", icon: <Bookmark size={22} /> },
   ];
 
-  // 🛠️ نقلنا شرط الأمان ليكون هنا أسفل الـ Hooks مباشرة لتجنب كسر القواعد الصارمة لـ React
   if (pathname.startsWith("/admin")) return null;
 
   return (
@@ -110,7 +136,6 @@ export default function Navbar() {
           </ul>
 
           <div className={styles.navActions}>
-            {/* 🛠️ تحويل زرار المجموعات إلى Link تفاعلي برقم حي */}
             <Link href="/saved" className={styles.iconBtn} aria-label="المجموعات المحفوظة">
               <Heart size={22} />
               {savedCount > 0 && (
@@ -120,7 +145,6 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* 🛠️ تحويل زرار السلة إلى Link تفاعلي برقم حي */}
             <Link href="/cart" className={styles.iconBtn} aria-label="سلة المشتريات">
               <ShoppingBag size={22} />
               {cartCount > 0 && (
@@ -130,20 +154,29 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* زرار اليوزر الذكي */}
-            <Link 
-              href={userSession ? "/profile" : "/login"} 
+            {/* زرار اليوزر الذي يفتح الـ Popup بدل التوجيه */}
+            <button 
+              onClick={() => userSession ? setShowProfile(true) : window.location.href = "/login"} 
               className={styles.iconBtn} 
               aria-label="حساب المستخدم"
             >
               <User size={22} />
-            </Link>
+            </button>
           </div>
-
         </div>
       </nav>
 
-      {/* الناف بار السفلي للموبايل مدمج به الـ Links الذكية */}
+      {/* 3. استدعاء المودال */}
+      {showProfile && (
+        <ProfileModal 
+          isOpen={showProfile} 
+          onClose={() => setShowProfile(false)} 
+          userProfile={userProfile} 
+          onLogout={handleLogout}
+        />
+      )}
+
+      {/* الناف بار السفلي للموبايل */}
       <div className={styles.bottomNav}>
         {navItems.map((item) => {
           const isActive = pathname === item.path;

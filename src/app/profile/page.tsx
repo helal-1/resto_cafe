@@ -1,136 +1,58 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { User, Mail, Shield, LogOut, Loader2,  Heart, Coffee } from "lucide-react";
-import { supabase } from "@/utils/supabase";
+import { motion, AnimatePresence } from "framer-motion";
+import { User, Mail, Shield, LogOut, X, Coffee, Heart, Settings, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import styles from "./profile.module.scss";
 
-export default function ProfilePage() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [userProfile, setUserProfile] = useState<{ full_name: string; email: string; role: string } | null>(null);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        // 1. جلب بيانات الجلسة الحالية للمستخدم
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (!session) {
-          router.push("/login");
-          return;
-        }
-
-        // 2. جلب البروفايل الفرعي من جدول user_profiles
-        const { data: profile, error } = await supabase
-          .from("user_profiles")
-          .select("full_name, email, role")
-          .eq("id", session.user.id)
-          .single();
-
-        if (error || !profile) {
-          // تأمين لو البيانات ممسوحة بالخطأ
-          setUserProfile({
-            full_name: "عميل ريستو",
-            email: session.user.email || "",
-            role: "user"
-          });
-        } else {
-          setUserProfile(profile);
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, [router]);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
-  };
-
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <Loader2 className={styles.spinner} size={40} />
-        <p>جاري تحميل أجواء حسابك الفاخر...</p>
-      </div>
-    );
-  }
+export default function ProfileModal({ isOpen, onClose, userProfile, onLogout }: any) {
+  if (!isOpen) return null;
 
   return (
-    <div className={styles.profileWrapper}>
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        className={styles.profileCard}
-      >
-        {/* البانر العلوي الفخم للبروفايل */}
-        <div className={styles.avatarZone}>
-          <div className={styles.avatarRing}>
-            <User size={45} />
-          </div>
-          <h2>مرحباً، {userProfile?.full_name}</h2>
-          <span className={styles.roleTag}>
-            <Shield size={14} />
-            {userProfile?.role === "admin" ? "لوحة الإدارة" : "عضوية ريستو الفاخرة"}
-          </span>
-        </div>
-
-        {/* تفاصيل الحساب الحية */}
-        <div className={styles.infoSection}>
-          <div className={styles.infoRow}>
-            <div className={styles.infoIcon}><User size={20} /></div>
-            <div className={styles.infoText}>
-              <label>الاسم الكامل</label>
-              <p>{userProfile?.full_name}</p>
+    <AnimatePresence>
+      <div className={styles.overlay} onClick={onClose}>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }} 
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          className={styles.modalContent}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button className={styles.closeBtn} onClick={onClose}><X size={18} /></button>
+          
+          {/* المنطقة العلوية */}
+          <div className={styles.avatarZone}>
+            <div className={styles.avatarRing}><User size={30} /></div>
+            <h2>{userProfile?.full_name || "عميل ريستو"}</h2>
+            <div className={styles.roleBadge}>
+              {userProfile?.role === "admin" ? "لوحة الإدارة" : "عضوية ريستو الفاخرة"}
             </div>
           </div>
 
-          <div className={styles.infoRow}>
-            <div className={styles.infoIcon}><Mail size={20} /></div>
-            <div className={styles.infoText}>
-              <label>البريد الإلكتروني</label>
-              <p>{userProfile?.email}</p>
-            </div>
+          {/* معلومات المستخدم */}
+          <div className={styles.infoGrid}>
+            <div className={styles.infoItem}><Mail size={16}/> <span>{userProfile?.email}</span></div>
+            <div className={styles.infoItem}><Shield size={16}/> <span>{userProfile?.role === "admin" ? "أدمن" : "مستخدم نشط"}</span></div>
           </div>
-        </div>
 
-        {/* إحصائيات سريعة للعميل لإعطاء لمسة احترافية للـ UI */}
-        <div className={styles.userStats}>
-          <div className={styles.statBox}>
-            <Coffee size={22} />
-            <span>0</span>
-            <p>طلبات حية</p>
+          {/* إحصائيات سريعة */}
+          <div className={styles.statsRow}>
+            <div className={styles.stat}><Coffee size={18} /> <p>0 طلب</p></div>
+            <div className={styles.stat}><Heart size={18} /> <p>2 مفضلة</p></div>
           </div>
-          <div className={styles.statBox}>
-            <Heart size={22} />
-            <span>2</span>
-            <p>بالمجموعات</p>
-          </div>
-        </div>
 
-        {/* أزرار التحكم */}
-        <div className={styles.actionButtons}>
-          {userProfile?.role === "admin" && (
-            <Link href="/admin/dashboard" className={styles.adminBtn}>
-              دخول لوحة التحكم
-            </Link>
-          )}
-          <button onClick={handleLogout} className={styles.logoutBtn}>
-            <LogOut size={18} />
-            <span>تسجيل الخروج السريع</span>
-          </button>
-        </div>
-      </motion.div>
-    </div>
+          {/* أزرار الإجراءات */}
+          <div className={styles.actionSection}>
+            {userProfile?.role === "admin" && (
+              <Link href="/admin/dashboard" className={styles.adminLink}>
+                <LayoutDashboard size={18} /> لوحة التحكم
+              </Link>
+            )}
+            <button onClick={onLogout} className={styles.logoutBtn}>
+              <LogOut size={18} /> تسجيل الخروج
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </AnimatePresence>
   );
 }
