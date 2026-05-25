@@ -31,12 +31,12 @@ interface Product {
 }
 
 const categories = [
-  { id: "coffee", name: "قهوة دافئة", img: "/Coffee time.jpeg" },
-  { id: "iced", name: "قهوة مثلجة", img: "/Coffee time.jpeg" },
-  { id: "mojito", name: "موهيتو منعش", img: "/Coffee time.jpeg" },
-  { id: "sweets", name: "حلويات فخمة", img: "/Coffee time.jpeg" },
-  { id: "juices", name: "عصائر طبيعية", img: "/Coffee time.jpeg" },
-  { id: "bakery", name: "مخبوزات طازجة", img: "/Coffee time.jpeg" },
+  { id: "coffee", name: "قهوة دافئة", img: "/0.5528140934805816.jpeg" },
+  { id: "iced", name: "قهوة مثلجة", img: "/1779464138787-gudadm5.jpeg" },
+  { id: "mojito", name: "موهيتو منعش", img: "/0.7195448592161238.jpeg" },
+  { id: "sweets", name: "حلويات فخمة", img: "/0.6416238160303595.jpeg" },
+  { id: "juices", name: "عصائر طبيعية", img: "/0.11233876147254995.jpeg" },
+  { id: "bakery", name: "مخبوزات طازجة", img: "/1779464172820-6njyu9.jpeg" },
 ];
 
 const sliderData = [
@@ -381,8 +381,13 @@ export default function Home() {
 
   const currentSlide = sliderData[current];
 
+
+
+ 
+
   return (
     <>
+
       <Navbar />
 
       <div className={styles.container}>

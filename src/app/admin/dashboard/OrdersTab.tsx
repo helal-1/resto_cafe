@@ -24,18 +24,10 @@ export interface Order {
   phone: string;
 }
 
-export interface Props {
-  orders: Order[];
-  refresh: () => Promise<void>;
-}
-// استبدل التعريف الحالي بالكامل بهذا السطر فقط في ملف OrdersTab.tsx
 export function OrdersTab(props: any) {
   const { orders, refresh } = props;
   
-  // ... (باقي الكود كما هو تماماً)
-  
   const openWhatsApp = (phone: string) => {
-    // تشغيل الـ refresh عند الضغط
     refresh(); 
     const formattedPhone = phone.startsWith("0") ? "2" + phone : phone;
     window.open(`https://wa.me/${formattedPhone}`, "_blank");
@@ -56,15 +48,16 @@ export function OrdersTab(props: any) {
           </thead>
           <tbody>
             {orders && orders.length > 0 ? (
-              orders.map((o) => {
-                // التأكد من معالجة items سواء كانت JSON string أو مصفوفة
+              orders.map((o: Order) => {
                 const items: CartItem[] = typeof o.items === "string" ? JSON.parse(o.items) : (o.items || []);
 
                 return (
                   <tr key={o.id}>
-                    <td>{o.customer_name}</td>
-                    <td>
-                      <div className={styles.itemsList}>
+                    {/* إضافة data-label ليعمل نظام الكروت في الموبايل */}
+                    <td data-label="العميل:">{o.customer_name}</td>
+                    
+                    <td data-label="التفاصيل:">
+                      <div className={styles.itemList}>
                         {items?.map((item, i) => (
                           <div key={i} className={styles.itemRow}>
                             {item.products?.img && (
@@ -81,11 +74,13 @@ export function OrdersTab(props: any) {
                         ))}
                       </div>
                     </td>
-                    <td>
+                    
+                    <td data-label="العنوان/الموبايل:">
                       <div>{o.address}</div>
-                      <div className={styles.phone}>{o.phone}</div>
+                      <div className={styles.phone} style={{color: '#b5835a', fontSize: '0.9rem'}}>{o.phone}</div>
                     </td>
-                    <td>
+                    
+                    <td data-label="إجراء:">
                       <button 
                         onClick={() => openWhatsApp(o.phone)} 
                         className={styles.whatsappBtn}

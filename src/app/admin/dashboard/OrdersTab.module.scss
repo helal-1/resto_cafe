@@ -1,17 +1,52 @@
-// اتأكد إن ده موجود في أول سطر بالظبط
 @import '@/styles/variables';
 
 .zone {
   background: rgba(24, 17, 12, 0.6);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 20px;
   color: #fff;
   border: 1px solid rgba(181, 131, 90, 0.2);
 
+  // تنسيق الجدول للشاشات الكبيرة
   .table {
     width: 100%;
     border-collapse: collapse;
+    
     th, td { padding: 15px; border-bottom: 1px solid #333; text-align: right; }
+  }
+
+  // تحويل الجدول إلى كروت في الموبايل
+  @media (max-width: 768px) {
+    background: transparent;
+    padding: 0;
+
+    .table {
+      display: block; // نجعل الجدول يتصرف كبلوك
+      thead { display: none; } // نخفي عناوين الجدول
+      tbody { display: block; }
+      
+      tr {
+        display: block;
+        background: rgba(24, 17, 12, 0.8);
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 15px;
+        border: 1px solid rgba(181, 131, 90, 0.3);
+      }
+
+      td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #222;
+        
+        &::before {
+          content: attr(data-label); // نستخدم data-label ليظهر العنوان بجانب القيمة
+          font-weight: bold;
+          color: #b5835a;
+        }
+      }
+    }
   }
 
   .whatsappBtn {
@@ -24,11 +59,7 @@
     display: inline-block;
   }
 }
-.miniImg { 
-  width: 30px; 
-  height: 30px; 
-  border-radius: 5px; 
-  object-fit: cover; 
-}
+
+.miniImg { width: 30px; height: 30px; border-radius: 5px; object-fit: cover; }
 .itemList { list-style: none; padding: 0; margin-top: 10px; }
 .itemRow { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }

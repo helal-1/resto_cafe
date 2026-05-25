@@ -11,13 +11,9 @@ const nextConfig = {
     ],
   },
   typescript: {
-    // يمنع فشل الـ Build بسبب أخطاء الـ TypeScript
     ignoreBuildErrors: true,
   },
-  eslint: {
-    // يمنع فشل الـ Build بسبب تحذيرات الـ ESLint
-    ignoreDuringBuilds: true,
-  },
+  // تم حذف eslint من هنا لأنه يسبب تحذيراً في الإصدارات الجديدة
 };
 
 module.exports = nextConfig;
